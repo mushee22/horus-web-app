@@ -4,7 +4,6 @@ import { PlayCircleIcon } from 'lucide-react';
 import React, { useEffect } from 'react';
 import ReactPlayer, { ReactPlayerProps } from 'react-player';
 // import screenfull from 'screenfull';
-import useLearningProgress from '@/hook/use-learning-progress';
 import PlayerControls from './player-controls';
 import PlayerOverlay from './player-overlay';
 import { INITIAL_STATE, reducer } from './reducer';
@@ -33,7 +32,7 @@ const Player: React.FC<Props> = (props) => {
     const unmount = React.useRef<boolean>(false);
 
 
-    const { onUpdateVideoProgress } = useLearningProgress()
+    // const { onUpdateVideoProgress } = useLearningProgress()
 
 
     useEffect(() => {
@@ -54,11 +53,11 @@ const Player: React.FC<Props> = (props) => {
         return () => {
             if (!unmount.current) return
             if (state.progress?.playedSeconds && state.progress?.playedSeconds > 0) {
-                onUpdateVideoProgress({
-                    videoId: props.videoId,
-                    progress: state.progress?.playedSeconds,
-                    isCompleted: props?.isCompleted ?? false
-                })
+                // onUpdateVideoProgress({
+                //     videoId: props.videoId,
+                //     progress: state.progress?.playedSeconds,
+                //     isCompleted: props?.isCompleted ?? false
+                // })
             }
         }
     }, [state.progress?.playedSeconds,])
@@ -80,11 +79,11 @@ const Player: React.FC<Props> = (props) => {
         dispatch({ type: 'LIGHT', payload: true });
         playerRef.current?.showPreview();
         setVideoEnded(true)
-        onUpdateVideoProgress({
-            videoId: props.videoId,
-            progress: state.progress?.playedSeconds,
-            isCompleted: true
-        })
+        // onUpdateVideoProgress({
+        //     videoId: props.videoId,
+        //     progress: state.progress?.playedSeconds,
+        //     isCompleted: true
+        // })
         if (onEnded) {
             onEnded()
         }
