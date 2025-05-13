@@ -36,8 +36,8 @@ export default function Page() {
 
         </div>
       </>
-      <footer className=" bg-black  px-5 pt-5 pb-8 absolute bottom-0 w-full flex  gap-x-3">
-        <div className="h-9 w-9 rounded-full flex items-center justify-center"
+      <footer className=" bg-black px-2 sm:px-5 pt-5 pb-8 absolute bottom-0 w-full flex  gap-x-3">
+        <div className="size-9 rounded-full flex items-center justify-center"
           style={{
             background: "linear-gradient(119.22deg, rgba(255, 255, 255, 0.05) 8.5%, rgba(255, 255, 255, 0.02) 91.29%)",
           }}
@@ -48,13 +48,10 @@ export default function Page() {
           <input
             type="text"
             placeholder="Type a message..."
-            className="  p-2 rounded-md border-none focus:outline-none placeholder:text-sm placeholder:text-foreground/30 placeholder:font-light"
+            className=" p-2 rounded-md border-none focus:outline-none placeholder:text-sm placeholder:text-foreground/30 placeholder:font-light"
           />
-          {/* <button className="bg-indigo-500 text-white px-4 py-2 rounded-md ml-2">
-              Send
-            </button> */}
         </div>
-        <div className="h-9 w-9 rounded-full flex items-center bg-[#F0B267] justify-center">
+        <div className="size-9 min-w-9 rounded-full flex items-center bg-[#F0B267] justify-center">
           <Send size={16} className="text-black" />
         </div>
       </footer>

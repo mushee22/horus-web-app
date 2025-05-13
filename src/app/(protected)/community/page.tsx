@@ -5,9 +5,9 @@ export default function Page() {
   return (
     <>
       <div className=' px-2 space-y-1  block md:hidden'>
-        <div className="shadow-md py-2 bg-black sticky top-0 h-[70px] flex gap-x-3  items-center z-20 pl-2">
+        <div className="shadow-md py-2 bg-black sticky top-0 h-[50px] flex gap-x-3  items-center z-20 pl-2">
           <BackButton />
-          <p className="text-xl font-medium">Community</p>
+          <p className="text-base font-medium">Community</p>
         </div>
         <div className=''>
           <ChatList />
