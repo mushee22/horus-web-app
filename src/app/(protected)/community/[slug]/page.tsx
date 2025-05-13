@@ -3,7 +3,7 @@ import { Plus, Send } from "lucide-react";
 
 export default function Page() {
   return (
-    <div className=" flex-1 flex flex-col relative h-screen ">
+    <div className=" flex-1 flex flex-col relative h-[100dvh] ">
       <div className="shadow-md py-2 h-[60px] sticky top-0 flex gap-x-3  items-center bg-black/50 pl-2">
         <BackButton className="w-9 h-9 md:hidden"/>
         <p className="text-lg font-medium"># Batch 1</p>

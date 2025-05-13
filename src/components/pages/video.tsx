@@ -10,7 +10,7 @@ export default function VideoPageContent({ chapterId, videoId }: { chapterId?: s
         <Container>
             <PageHeader
                 isBackButton
-                pageTitle=''
+                pageTitle='Video'
             />
             <div className='flex flex-col md:flex-row gap-x-6'>
                 <VideoPlayerSection  slug={videoId} />

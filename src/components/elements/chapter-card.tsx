@@ -37,13 +37,13 @@ export default function ChapterCard({ thumbnail, numberOfLessons, numberOfComple
                 }
             </div>
             <div className='flex-1 space-y-1'>
-                <div className='flex justify-between items-center'>
+                <div className='flex justify-between items-center flex-wrap '>
                     <h3>
                         <span className='text-sm font-semibold'>{title}</span>
                     </h3>
                     {
                         progress ?
-                            <div className='flex gap-x-2 items-center'>
+                            <div className='flex gap-x-2 items-center '>
                                 <span className='text-xs  font-light text-foreground/50'>{numberOfLessons} Videos</span>
                                 <div className='w-[1px] bg-foreground/10 h-[8px]'></div>
                                 <span className='text-xs  font-light text-foreground/50'>{durationText} min</span>

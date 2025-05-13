@@ -21,9 +21,9 @@ export default function PageHeader({ subTitle = '', pageTitle, endIcon, isBackBu
       <div className='flex-1 flex flex-col'>
         {
           subTitle &&
-          <p className='text-sm font-medium text-foreground/50'>{subTitle}</p>
+          <p className='text-xs sm:text-sm font-medium text-foreground/50'>{subTitle}</p>
         }
-        <h2 className='text-2xl font-bold'>{pageTitle}</h2>
+        <h2 className='text-base sm:text-2xl font-bold'>{pageTitle}</h2>
       </div>
       {
         endIcon && endIcon
@@ -37,7 +37,7 @@ export const BackButton = ({className = ''}: {className?: string}) => {
    const router = useRouter();
   
   return (
-    <button onClick={router.back} className={cn('bg-gradient-to-b from-foreground/5 to-foreground/10 backdrop-blur-3xl w-9 h-9 rounded-full flex items-center justify-center', className)}>
+    <button onClick={router.back} className={cn('bg-gradient-to-b from-foreground/5 to-foreground/10 backdrop-blur-3xl size-7 md:size-9 rounded-full flex items-center justify-center', className)}>
       <ChevronLeft className='text-foreground size-[80%]'/>
     </button>
   )

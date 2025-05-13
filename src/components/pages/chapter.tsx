@@ -7,7 +7,7 @@ export default function ChapterPageContent({ slug }: { slug: string }) {
     <Container>
       <PageHeader
         pageTitle='Chapter 1: Introduction'
-        subTitle='Course Title'
+        subTitle='Chapter Title'
         isBackButton
       />
       <VideoListingSection  slug={slug}/>
