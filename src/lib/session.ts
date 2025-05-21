@@ -1,5 +1,5 @@
 'use server'
-import { cookies } from 'next/headers'
+import { cookies } from 'next/headers';
 
 export async function createSession(userId: string, token: string) {
 
@@ -11,7 +11,7 @@ export async function createSession(userId: string, token: string) {
 
     cookieStore.set('session', session, {
         httpOnly: true,
-        secure: true,
+        secure: false,
         expires: expiresAt,
         sameSite: 'lax',
         path: '/',
