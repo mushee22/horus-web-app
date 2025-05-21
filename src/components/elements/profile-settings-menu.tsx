@@ -1,4 +1,3 @@
-import React from 'react'
 
 import { Button } from "@/components/ui/button"
 import {
@@ -8,7 +7,7 @@ import {
     DropdownMenuShortcut,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { LogOut, PencilIcon } from 'lucide-react'
+import { Lock, LogOut, PencilIcon } from 'lucide-react'
 
 import { useAuthContext } from '@/context/auth-context'
 import { useRouter } from 'next/navigation'
@@ -24,6 +23,10 @@ export default function ProfileSettingsMenu() {
         router.push(`/profile/${user?.id}/edit`);
     }
 
+    const handlOnUpdatePasssword = async () => {
+        router.push(`/profile/${user?.id}/update-password`);
+    }
+
 
     return (
         <div>
@@ -35,11 +38,17 @@ export default function ProfileSettingsMenu() {
                         </svg>
                     </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent onClick={handlOnEdit} className="w-28 bg-background border-foreground/50">
-                    <DropdownMenuItem className='hover:bg-foreground/15 cursor-pointer'>
+                <DropdownMenuContent  className=" bg-background border-foreground/50">
+                    <DropdownMenuItem onClick={handlOnEdit} className='hover:bg-foreground/15 cursor-pointer'>
                         Edit
                         <DropdownMenuShortcut>
                             <PencilIcon />
+                        </DropdownMenuShortcut>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={handlOnUpdatePasssword} className='hover:bg-foreground/15 cursor-pointer'>
+                        Update Password
+                        <DropdownMenuShortcut>
+                            <Lock />
                         </DropdownMenuShortcut>
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={onLogout} className='hover:bg-foreground/15 cursor-pointer'>

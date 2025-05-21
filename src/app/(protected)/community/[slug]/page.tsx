@@ -3,36 +3,39 @@ import { Plus, Send } from "lucide-react";
 
 export default function Page() {
   return (
-    <div className=" flex-1 flex flex-col relative h-[100dvh] ">
+    <div className=" flex-1 flex flex-col relative h-[100dvh] md:h-screen ">
       <div className="shadow-md py-2 h-[60px] sticky top-0 flex gap-x-3  items-center bg-black/50 pl-2">
         <BackButton className=" md:hidden" />
         <p className="text-lg font-medium"># Batch 1</p>
       </div>
       <>
         <div className="p-4 flex-1 overflow-y-auto pb-24">
-          {
-            chats.map((chat, index) => (
-              chat.mode == "user" ?
-                <div className="flex mb-4 justify-end cursor-pointer" key={index}>
-                  <div className="flex  flex-1 flex-col max-w-96 bg-black rounded-lg p-3 gap-3">
-                    <p className="text-sm font-medium ">{chat.username}</p>
-                    <p className="text-foreground text-sm font-light">{chat.message}</p>
-                    <p className="text-foreground/50 text-xs text-end font-light">{chat.time}</p>
+          <div className="flex flex-col justify-end">
+
+            {
+              chats.map((chat, index) => (
+                chat.mode == "user" ?
+                  <div className="flex mb-4 justify-end cursor-pointer" key={index}>
+                    <div className="flex  flex-1 flex-col max-w-96 bg-black rounded-lg p-3 gap-3">
+                      <p className="text-sm font-medium ">{chat.username}</p>
+                      <p className="text-foreground text-sm font-light">{chat.message}</p>
+                      <p className="text-foreground/50 text-xs text-end font-light">{chat.time}</p>
+                    </div>
+                    <div className="w-9 h-9 bg-white self-end rounded-xl flex items-center justify-center mr-2">
+                    </div>
+                  </div> :
+                  <div className="flex mb-4  cursor-pointer "  key={index}>
+                    <div className="w-9 h-9 bg-white self-end rounded-xl flex items-center justify-center mr-2">
+                    </div>
+                    <div className="flex flex-1 flex-col max-w-96 bg-black rounded-lg p-3 gap-3">
+                      <p className="text-sm font-medium ">{chat.username}</p>
+                      <p className="text-foreground text-sm font-light">{chat.message}</p>
+                      <p className="text-foreground/50 text-end text-xs font-light">{chat.time}</p>
+                    </div>
                   </div>
-                  <div className="w-9 h-9 bg-white self-end rounded-xl flex items-center justify-center mr-2">
-                  </div>
-                </div> :
-                <div className="flex mb-4  cursor-pointer" key={index}>
-                  <div className="w-9 h-9 bg-white self-end rounded-xl flex items-center justify-center mr-2">
-                  </div>
-                  <div className="flex flex-1 flex-col max-w-96 bg-black rounded-lg p-3 gap-3">
-                    <p className="text-sm font-medium ">{chat.username}</p>
-                    <p className="text-foreground text-sm font-light">{chat.message}</p>
-                    <p className="text-foreground/50 text-end text-xs font-light">{chat.time}</p>
-                  </div>
-                </div>
-            ))
-          }
+              ))
+            }
+          </div>
 
         </div>
       </>

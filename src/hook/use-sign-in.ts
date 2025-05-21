@@ -1,7 +1,8 @@
 import React from 'react';
 
+import { LOGIN_URL, LOGIN_URL_METHOD } from '@/constants/urls';
 import { SigInFormSchema } from '@/lib/definition';
-import { FecthError } from '@/lib/fetch';
+import { FecthError, fetcher } from '@/lib/fetch';
 import { createSession } from '@/lib/session';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
@@ -29,21 +30,21 @@ export default function useSignIn() {
                 }
             }
 
-            // const email = formData.get('email');
-            // const password = formData.get('password');
+            const email = formData.get('email');
+            const password = formData.get('password');
 
             try {
-                // const { access } = await fetcher(LOGIN_URL, {
-                //     method: LOGIN_URL_METHOD,
-                //     body: JSON.stringify({
-                //         email: email,
-                //         password: password,
-                //     }),
-                //     isGuest: true,
-                // });
+                const { access } = await fetcher(LOGIN_URL, {
+                    method: LOGIN_URL_METHOD,
+                    body: JSON.stringify({
+                        email: email,
+                        password: password,
+                    }),
+                    isGuest: true,
+                });
 
 
-                await createSession(`${name}`, "21412842184721421421421");
+                await createSession(`${name}`, access);
 
                 router.replace('/')
 
@@ -59,7 +60,7 @@ export default function useSignIn() {
                 }
             }
 
-            // await createSession(`${name}`, "21412842184721421421421");
+            
 
         }
     })

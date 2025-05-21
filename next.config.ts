@@ -1,5 +1,5 @@
-import { withNextVideo } from "next-video/process";
 import type { NextConfig } from "next";
+import { withNextVideo } from "next-video/process";
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -9,6 +9,10 @@ const nextConfig: NextConfig = {
         protocol: 'http',
         hostname: 'localhost',
       },
+      {
+        protocol: 'https',
+        hostname: 'horusbackend.s3.amazonaws.com'
+      }
     ],
   }
 };

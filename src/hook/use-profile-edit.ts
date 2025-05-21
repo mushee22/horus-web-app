@@ -15,6 +15,8 @@ export default function useProfileMutation() {
         email: "",
         phone: "",
         student_bio: "",
+        password: "",
+        old_password: ""
     })
 
     const { user } = useAuthContext();
@@ -26,6 +28,8 @@ export default function useProfileMutation() {
                 email: user?.user?.email ?? '',
                 phone: user?.user?.phone ?? '',
                 student_bio: user?.student_bio ?? '',
+                password: "",
+                old_password: ""
             })
         }
     }, [user])
@@ -50,6 +54,8 @@ export default function useProfileMutation() {
             const email = formData.get('email');
             const phone = formData.get('phone');
             const bio = formData.get('student_bio');
+            const password = formData.get('password');
+            // const oldPassword = formData.get('old_password');
             formData.append('profile_image', '')
 
             const validateUserEditData = UserEditSchema.safeParse({
@@ -65,6 +71,8 @@ export default function useProfileMutation() {
                         name: errors.fieldErrors.name,
                         email: errors.fieldErrors.email,
                         phone: errors.fieldErrors.phone,
+                        password: errors.fieldErrors.password,
+                        // old_password: errors.fieldErrors.old_password,
                     },
                 }
             }
@@ -79,6 +87,10 @@ export default function useProfileMutation() {
                             last_name: lastName,
                             email,
                             phone,
+                            ...(password ? {
+                                password,
+                                // old_password: oldPassword
+                            } : {})
                         },
                         student_bio: bio,
                     }),

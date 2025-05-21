@@ -8,10 +8,10 @@ import { Input } from '@/components/ui/input';
 
 export default function ProfileEditForm() {
 
-    const { 
+    const {
         mutate,
-        isPending, 
-        data, 
+        isPending,
+        data,
         userState,
         handleChange,
     } = useProfileMutation()
@@ -69,6 +69,34 @@ export default function ProfileEditForm() {
                     {
                         data?.errors?.phone && (
                             <p className='text-red-500 text-sm font-medium'>{data?.errors?.phone[0]}</p>
+                        )
+                    }
+                </div>
+                {/* <div className='flex flex-col gap-y-1'>
+                    <label className='text-sm font-medium'>Old Password</label>
+                    <Input
+                        type="password"
+                        placeholder="Password"
+                        className=""
+                        name='old_password'
+                    />
+                    {
+                        data?.errors?.old_password && (
+                            <p className='text-red-500 text-sm font-medium'>{data?.errors?.old_password[0]}</p>
+                        )
+                    }
+                </div> */}
+                <div className='flex flex-col gap-y-1'>
+                    <label className='text-sm font-medium'>New Password</label>
+                    <Input
+                        type="password"
+                        placeholder="Password"
+                        className=""
+                        name='password'
+                    />
+                    {
+                        data?.errors?.password && (
+                            <p className='text-red-500 text-sm font-medium'>{data?.errors?.password[0]}</p>
                         )
                     }
                 </div>

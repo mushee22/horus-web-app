@@ -1,4 +1,4 @@
-import { secondsToMinutes } from "@/lib/utils";
+import { cn, secondsToMinutes } from "@/lib/utils";
 import Image from "next/image";
 
 interface Props {
@@ -8,15 +8,16 @@ interface Props {
     thumbnail?: string;
     duration: number;
     progress: number;
+    className?: string;
 }
 
 
-export default function VideoCard({ title, thumbnail, isCompleted, duration }: Props) {
+export default function VideoCard({ title, thumbnail, isCompleted, duration, className }: Props) {
 
     const { durationText } = secondsToMinutes(duration)
 
     return (
-        <div className='flex gap-x-3 items-center hover:bg-gradient-to-r from-foreground/5 to-foreground/10 backdrop-blur-3xl p-2 rounded-xl transition-all duration-200 ease-in-out'>
+        <div className={cn('flex gap-x-3 items-center hover:bg-gradient-to-r from-foreground/5 to-foreground/10 backdrop-blur-3xl p-2 rounded-xl transition-all duration-200 ease-in-out', className)}>
             <div className='w-[84px] h-[62px] rounded-xl bg-[#D9D9D9] relative overflow-hidden'>
                 {
                     thumbnail &&

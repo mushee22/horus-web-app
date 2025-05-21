@@ -1,7 +1,10 @@
 'use client'
+import { USER_URL } from '@/constants/urls';
+import { fetcher } from '@/lib/fetch';
 import { deleteSession, getSession } from '@/lib/session';
 import { Student } from '@/type';
 import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 import React, { PropsWithChildren, useEffect } from 'react';
 
 interface AuthContexState {
@@ -26,6 +29,8 @@ const AuthContext = React.createContext<AuthContextProps>({
 
 
 export default function AuthContextProvider({ children }: PropsWithChildren) {
+
+    const router = useRouter()
 
     const [contextState, setContextState] = React.useState<AuthContexState>({
         isAuthenticated: false,
@@ -53,30 +58,10 @@ export default function AuthContextProvider({ children }: PropsWithChildren) {
         queryFn: async () => {
             const { token } = sessionData ?? {};
             if (!token) return null;
-            // const res = await fetcher(USER_URL, {
-            //     isGuest: false,
-            // });
-            const data = {
-                data: {
-                    id: 1,
-                    user: {
-                        id: 2,
-                        first_name: "Rahul",
-                        last_name: "Kumar",
-                        email: "rahul.kumar@example.com",
-                        phone: "+919999999999"
-                    },
-                    created_date: "2025-04-25",
-                    created_time: "09:00:00",
-                    modified_date: "2025-05-10",
-                    modified_time: "15:30:00",
-                    is_active: true,
-                    group_code: "GRP2025A",
-                    profile_image: "",
-                    student_bio: "Passionate about finance and crypto."
-                }
-            };
-            return data;
+            const res = await fetcher(USER_URL, {
+                isGuest: false,
+            });
+            return res;
         },
         enabled: !isLoading,
     })
@@ -89,6 +74,7 @@ export default function AuthContextProvider({ children }: PropsWithChildren) {
             token: null,
             isAuthenticating: false,
         });
+        router.replace('/sign-in')
     }
 
     useEffect(() => {

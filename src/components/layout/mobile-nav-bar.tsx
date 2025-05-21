@@ -9,12 +9,12 @@ export default function MobileNavBar() {
 
     const  pathname = usePathname();
 
-    const isHideMobileNavBar = pathname.includes('community')
+    // const isHideMobileNavBar = pathname.includes('community')
 
   
 
     return (
-        <div className={cn('fixed z-20 bottom-0 inset-x-0 md:inset-y-0 md:w-[230px] max-md:h-[83px] md:pt-8 flex md:flex-col max-md:items-center max-md:justify-around', isHideMobileNavBar ? 'hidden md:flex' : '')}
+        <div className={cn('fixed z-20 bottom-0 inset-x-0 md:inset-y-0 md:w-[230px] max-md:h-[83px] md:pt-8 flex md:flex-col max-md:items-center max-md:justify-around')}
             style={{
                 background: "linear-gradient(90deg, rgba(0, 0, 0, 0.47) 0%, rgba(0, 0, 0, 0.46) 100%)",
                 backdropFilter: "blur(60px)"

@@ -8,29 +8,29 @@ import UserDetails from '../sections/profile/user-details'
 
 export default function Profile() {
 
-  const { user } = useAuthContext()
+  const { user, isAuthenticating } = useAuthContext()
 
   return (
     <Container className='space-y-4'>
       <PageHeader
-       pageTitle='Profile'
-       endIcon={<>
-        <ProfileSettingsMenu/>
-       </>}
+        pageTitle='Profile'
+        endIcon={<>
+          <ProfileSettingsMenu />
+        </>}
       />
-      <UserDetails
-        name={user?.user?.first_name + ' ' + (user?.user?.last_name ?? '')}
-        role='Learner'
-        bio={user?.student_bio ?? ''}
-        email={user?.user?.email ?? ''}
-        imageUrl={user?.profile_image ?? ''}
-      />
-      <CourseProgressCard
-        // title='bio'
-        // progress={50}
-        // coureseImage=''
-        // lastViewedChapter=''
-      />
+      {
+        !isAuthenticating ?
+          <UserDetails
+            name={user?.user?.first_name + ' ' + (user?.user?.last_name ?? '')}
+            role='Learner'
+            bio={user?.student_bio ?? ''}
+            email={user?.user?.email ?? ''}
+            imageUrl={user?.profile_image ?? ''}
+          />
+          :
+        <></>
+      }
+      <CourseProgressCard/>
     </Container>
   )
 }

@@ -8,6 +8,7 @@ export type Response<T> = {
 export type CourseProgress = {
     total_subchapters: number,
     completed_subchapters: number,
+    last_watched_sub_chapter?: SubChapter
 }
 
 export type Progress = {

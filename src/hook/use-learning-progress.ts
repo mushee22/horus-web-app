@@ -1,4 +1,5 @@
 import { UPDATE_VIDEO_PROGRESS_URL } from "@/constants/urls"
+import { queryClient } from "@/lib/client"
 import { fetcher } from "@/lib/fetch"
 import { useMutation } from "@tanstack/react-query"
 
@@ -18,8 +19,10 @@ export default function useLearningProgress() {
                 }),
                 isGuest: false,
             })
+            queryClient.invalidateQueries({ queryKey: ['chapters'] })
             return res
-        }
+        },
+
     })
 
     return {

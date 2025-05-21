@@ -7,12 +7,12 @@ interface FetcherOptions extends RequestInit {
 }
 
 export const getURL = (path: string) => {
-    const baseURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/web/';
+    const baseURL =  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/web/';
     return `${baseURL}${path}`;
 }
 
 export const getImageURL = (path: string) => {
-    const baseURL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:8000/';
+    const baseURL = process.env.NEXT_PUBLIC_IS_MEDIA_URL_TYPE == "RELATIVE" ? process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:8000/' : "";
     return `${baseURL}${path}`;
 }
 
