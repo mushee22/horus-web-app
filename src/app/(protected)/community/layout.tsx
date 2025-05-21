@@ -1,8 +1,5 @@
-import { PropsWithChildren } from 'react'
 
-export default function layout({
-  children
-}: PropsWithChildren) {
+export default function layout() {
   return (
     <div className=' pt-0 pl-0 pr-0 pb-0 flex flex-col'>
       <div className='md:flex-1  md:flex'>
