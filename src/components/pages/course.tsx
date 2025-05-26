@@ -10,9 +10,9 @@ export default function Course() {
                 pageTitle='Learn'
             />
             <section className='mt-4 max-w-2xl'>
-                <CourseProgressCard/>
+                <CourseProgressCard />
             </section>
-            <ChapterListingSection/>
+            <ChapterListingSection />
         </Container>
     )
 }

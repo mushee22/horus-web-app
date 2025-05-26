@@ -28,11 +28,23 @@ export default function Profile() {
             imageUrl={user?.profile_image ?? ''}
           />
           :
-        <></>
+          <ProfileSkeletonView />
+        // <></>
       }
-      <CourseProgressCard/>
+      <CourseProgressCard />
     </Container>
   )
 }
 
-
+function ProfileSkeletonView() {
+  return (
+    <div className='flex gap-x-3 items-center'>
+      <div className='animate-pulse bg-white w-20 h-[134px] rounded-md'></div>
+      <div className='flex-1 space-y-2'>
+        <div className='w-ful  max-w-[300px] animate-pulse bg-white h-1.5 rounded-md'></div>
+        <div className='w-ful  max-w-[210px] animate-pulse bg-white h-1.5 rounded-md'></div>
+        <div className='w-ful  max-w-[250px] animate-pulse bg-white h-1.5 rounded-md'></div>
+      </div>
+    </div>
+  )
+}

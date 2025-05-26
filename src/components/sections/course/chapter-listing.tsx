@@ -1,5 +1,5 @@
 'use client'
-import ChapterCard from '@/components/elements/chapter-card'
+import ChapterCard, { LearnContentCardSkeleton } from '@/components/elements/chapter-card'
 import { GET_CHPATERS_LIST_URL } from '@/constants/urls'
 import { fetcher } from '@/lib/fetch'
 import { Chapter, Response } from '@/type'
@@ -8,7 +8,7 @@ import Link from 'next/link'
 
 export default function ChapterListingSection() {
 
-    const { data, } = useQuery<Response<Chapter[]>>({
+    const { data, isLoading} = useQuery<Response<Chapter[]>>({
         queryKey: ['chapters'],
         queryFn: async () => {
             const res = await fetcher(GET_CHPATERS_LIST_URL, {
@@ -22,6 +22,7 @@ export default function ChapterListingSection() {
 
     return (
         <section className='space-y-4 mt-4 md:grid grid-cols-2 gap-x-4 gap-y-4'>
+            {isLoading && <LearContentListSkeletonView/>}
             {
                 data?.data?.map((chapter, index) => (
                     <Link className='block' key={index} href={`/course/chapter/${chapter?.id}`}>
@@ -38,5 +39,19 @@ export default function ChapterListingSection() {
                 ))
             }
         </section>
+    )
+}
+
+
+export function LearContentListSkeletonView() {
+    return (
+        <>
+          <LearnContentCardSkeleton/>
+          <LearnContentCardSkeleton/>
+          <LearnContentCardSkeleton/>
+          <LearnContentCardSkeleton/>
+          <LearnContentCardSkeleton/>
+          <LearnContentCardSkeleton/>
+        </>
     )
 }

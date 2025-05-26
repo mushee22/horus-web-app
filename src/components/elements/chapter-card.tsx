@@ -70,3 +70,26 @@ export default function ChapterCard({ thumbnail, numberOfLessons, numberOfComple
         </div>
     )
 }
+
+
+export const LearnContentCardSkeleton = () => {
+    return (
+        <div className='flex gap-x-3 items-center p-2 rounded-xl hover:bg-gradient-to-r from-foreground/5 to-foreground/10'>
+            <div className='w-13 h-14 rounded-xl bg-white animate-pulse'></div>
+            <div className='flex-1 space-y-2'>
+                <div className='flex justify-between items-center flex-wrap '>
+                    <div className='h-1.5 bg-white animate-pulse flex-1 rounded-xl max-w-[300px]'/>
+                    <div className='flex gap-x-2 items-center '>
+                        <div className='h-1.5 bg-white animate-pulse  rounded-xl w-[30px]'/>
+                        <div className='w-[1px] bg-foreground/10 h-[8px]'></div>
+                        <div className='h-1.5 bg-white animate-pulse rounded-xl w-[30px]'/>
+                    </div> 
+                </div>
+                <div className='flex items-center gap-x-3'>
+                    <div className='h-2 bg-white animate-pulse flex-1 rounded-xl '/>
+                    <div className='h-1.5 bg-white animate-pulse rounded-xl w-[30px]'/>
+                </div>
+            </div>
+        </div>
+    )
+}

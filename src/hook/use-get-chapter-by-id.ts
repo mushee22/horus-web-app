@@ -15,7 +15,7 @@ export async function getChapterById({ queryKey }: { queryKey: readonly unknown[
 
 export default function useGetChapterById(id: string) {
 
-    const { data, } = useQuery<Response<SubChapter[]>>({
+    const { data, isLoading } = useQuery<Response<SubChapter[]>>({
         queryKey: ['chapters', id],
         queryFn: getChapterById,
         enabled: true,
@@ -24,6 +24,7 @@ export default function useGetChapterById(id: string) {
 
     return {
         subChapter: data?.data ?? [],
-        completedChapters: completedChapters
+        completedChapters: completedChapters, 
+        isLoading
     }
 }
