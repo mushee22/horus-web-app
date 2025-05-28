@@ -86,7 +86,7 @@ export default function ProfileEditForm() {
                         )
                     }
                 </div> */}
-                <div className='flex flex-col gap-y-1'>
+                {/* <div className='flex flex-col gap-y-1'>
                     <label className='text-sm font-medium'>New Password</label>
                     <Input
                         type="password"
@@ -99,7 +99,7 @@ export default function ProfileEditForm() {
                             <p className='text-red-500 text-sm font-medium'>{data?.errors?.password[0]}</p>
                         )
                     }
-                </div>
+                </div> */}
                 <div className='flex flex-col gap-y-1'>
                     <label className='text-sm font-medium'>Bio</label>
                     <textarea
