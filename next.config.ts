@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'horusbackend.s3.amazonaws.com'
+        hostname: 'horuslearn.s3.amazonaws.com'
       }
     ],
   }
