@@ -25,7 +25,7 @@ export default function ChapterCard({ thumbnail, numberOfLessons, numberOfComple
 
     return (
         <div className='flex gap-x-3 items-center p-2 rounded-xl hover:bg-gradient-to-r from-foreground/5 to-foreground/10'>
-            <div className='w-13 h-14 rounded-xl bg-[#D9D9D9] relative overflow-scroll'>
+            <div className='w-[96px] aspect-[64/56] rounded-xl bg-[#D9D9D9] relative overflow-scroll'>
                 {
                     thumbnail &&
                     <Image

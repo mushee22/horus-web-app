@@ -31,8 +31,8 @@ export async function getSession() {
     const sesssionParsed = JSON?.parse(session.value);
 
     return {
-        userId: sesssionParsed.userId,
-        token: sesssionParsed.token,
+        userId: sesssionParsed?.userId,
+        token: sesssionParsed?.token,
         isAuthenticated: !!sesssionParsed.token,
     }
 }
