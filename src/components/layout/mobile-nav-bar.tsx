@@ -8,12 +8,6 @@ import { ReactElement } from "react"
 
 export default function MobileNavBar() {
 
-    const pathname = usePathname();
-
-    // const isHideMobileNavBar = pathname.includes('community')
-
-
-
     return (
         <div className={cn('fixed z-20 bottom-0 inset-x-0 md:inset-y-0 md:w-[230px] max-md:h-[83px] md:pt-8 flex md:flex-col max-md:items-center max-md:justify-around')}
             style={{
@@ -45,7 +39,7 @@ const Menu = ({ title, path, asPath, icon: Icon }:
 
     const pathname = usePathname();
 
-    let isActive = pathname === "/" && path == "/" ? true : pathname.includes(asPath) ? true : false;
+    const isActive = pathname === "/" && path == "/" ? true : pathname.includes(asPath) ? true : false;
     
     return (
         <Link href={path} key={title} className={cn(nunito.className, 'cursor-pointer flex text-[10px] md:text-base text-primary flex-col md:flex-row md:py-3 md:px-4 md:justify-start gap-x-2 justify-center items-center md:hover:bg-gradient-to-l md:hover:from-foreground/5 md:to-foreground/10')}>
