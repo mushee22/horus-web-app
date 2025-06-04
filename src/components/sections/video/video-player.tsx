@@ -41,8 +41,8 @@ export default function VideoPlayerSection({ slug }: Props) {
           {data?.data?.duration && secondsToMinutes(data?.data?.duration)?.durationText} min
           </span>
         </div>
-        <p className='text-xs font-light p-3'>
-          {data?.data?.description}
+        <p className='text-xs font-light p-3 whitespace-pre-wrap'>
+          {data?.data?.description.trim()}
         </p>
       </div>
     </div>
