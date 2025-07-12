@@ -52,20 +52,20 @@ export default function ChapterCard({ thumbnail, numberOfLessons, numberOfComple
                             <></>
                     }
                 </div>
-                {
+                <div className='flex items-center gap-x-3'>
+                    <Progress value={progress} max={100} className='flex-1 h-1' />
+                    <span className='text-xs  font-light text-foreground/50'>{progress}%</span>
+                </div>
+                {/* {
                     progress ?
 
-                        <div className='flex items-center gap-x-3'>
-                            <Progress value={progress} max={100} className='flex-1 h-1' />
-                            <span className='text-xs  font-light text-foreground/50'>{progress}%</span>
-                        </div>
                         :
                         <div className='flex gap-x-2 items-center'>
                             <span className='text-xs  font-light text-foreground/50'>{numberOfLessons} Videos</span>
                             <div className='w-[1px] bg-foreground/10 h-[8px]'></div>
                             <span className='text-xs  font-light text-foreground/50'>{durationText} min</span>
                         </div>
-                }
+                } */}
             </div>
         </div>
     )
@@ -78,16 +78,16 @@ export const LearnContentCardSkeleton = () => {
             <div className='w-13 h-14 rounded-xl bg-white animate-pulse'></div>
             <div className='flex-1 space-y-2'>
                 <div className='flex justify-between items-center flex-wrap '>
-                    <div className='h-1.5 bg-white animate-pulse flex-1 rounded-xl max-w-[300px]'/>
+                    <div className='h-1.5 bg-white animate-pulse flex-1 rounded-xl max-w-[300px]' />
                     <div className='flex gap-x-2 items-center '>
-                        <div className='h-1.5 bg-white animate-pulse  rounded-xl w-[30px]'/>
+                        <div className='h-1.5 bg-white animate-pulse  rounded-xl w-[30px]' />
                         <div className='w-[1px] bg-foreground/10 h-[8px]'></div>
-                        <div className='h-1.5 bg-white animate-pulse rounded-xl w-[30px]'/>
-                    </div> 
+                        <div className='h-1.5 bg-white animate-pulse rounded-xl w-[30px]' />
+                    </div>
                 </div>
                 <div className='flex items-center gap-x-3'>
-                    <div className='h-2 bg-white animate-pulse flex-1 rounded-xl '/>
-                    <div className='h-1.5 bg-white animate-pulse rounded-xl w-[30px]'/>
+                    <div className='h-2 bg-white animate-pulse flex-1 rounded-xl ' />
+                    <div className='h-1.5 bg-white animate-pulse rounded-xl w-[30px]' />
                 </div>
             </div>
         </div>

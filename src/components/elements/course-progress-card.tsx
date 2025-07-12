@@ -25,7 +25,9 @@ export default function CourseProgressCard() {
         refetchOnReconnect: false,
     })
 
-    const completedPercentage = data?.data?.completed_subchapters ? (data?.data?.completed_subchapters / data?.data?.total_subchapters) * 100 : 0
+    const completedPercentage = data?.data?.completed_subchapters && data?.data?.total_subchapters
+        ? Number(((data.data.completed_subchapters / data.data.total_subchapters) * 100).toFixed(2))
+        : 0
     const lastViewedVideo = data?.data?.last_watched_sub_chapter
 
 

@@ -20,11 +20,13 @@ export default function useGetChapterById(id: string) {
         queryFn: getChapterById,
         enabled: true,
     })
+
     const completedChapters = data?.data?.filter((chapter) => chapter.is_completed).length ?? 0
 
     return {
         subChapter: data?.data ?? [],
         completedChapters: completedChapters, 
+        title: data?.data?.[0]?.chapter_name ?? "",
         isLoading
     }
 }
