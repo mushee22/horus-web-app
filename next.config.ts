@@ -12,6 +12,12 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'horuslearn.s3.amazonaws.com'
+      },
+      {
+        protocol: 'http',
+        hostname: '127.0.0.1',
+        // port: '8000',
+        pathname: '/**',
       }
     ],
   }

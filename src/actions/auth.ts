@@ -101,3 +101,4 @@ export async function signUp(state: AuthFormState, formData: FormData) {
         }
     }
 }
+

@@ -16,6 +16,8 @@ export default function VideoCard({ title, thumbnail, isCompleted, duration, cla
 
     const { durationText } = secondsToMinutes(duration)
 
+    
+
     return (
         <div className={cn('flex gap-x-3 overflow-hidden items-center hover:bg-gradient-to-r from-foreground/5 to-foreground/10 backdrop-blur-3xl p-2 rounded-xl transition-all duration-200 ease-in-out', className)}>
             <div className=' aspect-[84/62] w-[96px] rounded-xl bg-[#D9D9D9] relative overflow-hidden'>
