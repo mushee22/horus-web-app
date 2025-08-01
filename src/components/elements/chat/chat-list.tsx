@@ -2,9 +2,9 @@ import React from "react";
 import MessageCard from "./message-card";
 import LoadMore from "../load-more";
 import useChat from "@/hook/use-chat";
+import { formatRelativeDate } from "@/lib/utils";
 
 export default function ChatList() {
-
   const {
     messages,
     user,
@@ -12,7 +12,6 @@ export default function ChatList() {
     fetchNextPage,
     isNextPageAvilable,
   } = useChat();
-
 
   return (
     <div
@@ -23,9 +22,13 @@ export default function ChatList() {
         {Object.keys(messages)?.map((key) =>
           messages[key as unknown as number].map((item, index) => (
             <div key={index}>
-              <p className="text-sm font-medium text-center py-2 bg-background/20">
-                {item.date}
-              </p>
+              <div className="flex gap-x-4 items-center mb-4">
+                <div className="border-b flex-1 border-foreground/10"></div>
+                <p className="text-xs font-medium px-2 py-[2px] bg-white/10 text-center rounded-xl">
+                  {formatRelativeDate(item.date)}
+                </p>
+                <div className="border-b flex-1 border-foreground/10"></div>
+              </div>
               {item.messages.map((chat, index) => (
                 <MessageCard
                   key={index}

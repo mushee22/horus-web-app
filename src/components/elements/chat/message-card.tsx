@@ -21,10 +21,29 @@ const MessageCard = ({
   );
 
   return (
+    <div className={cn("flex", isUser ? "justify-end" : "")}>
     <div
-      className={cn("flex mb-4  cursor-pointer", isUser ? "justify-end" : "")}
+      className={cn("flex mb-4 w-fit min-w-[300px]  cursor-pointer", isUser ? "justify-end " : "")}
     >
-      <div className="flex  flex-1 flex-col max-w-96 bg-black rounded-lg p-3 gap-3">
+        {isUser ? (
+          <></>
+        ) : (
+          <div className="w-9 h-9 bg-white self-end rounded-xl overflow-hidden flex items-center justify-center mr-2">
+            {user?.profile_image ? (
+              <Image
+                src={getImageURL(user?.profile_image ?? "")}
+                alt="profile"
+                width={36}
+                height={36}
+              />
+            ) : (
+              <div className="size-full flex items-center text-black justify-center">
+                <p className="text-sm font-medium">{initials}</p>
+              </div>
+            )}
+          </div>
+        )}
+      <div className={cn("flex  flex-1 flex-col max-w-96  rounded-lg p-3 gap-3", isUser ? 'bg-[#F0B2671A]' : 'bg-[#FFFFFF0F]')}>
         {isUser ? (
           <></>
         ) : (
@@ -41,20 +60,7 @@ const MessageCard = ({
           {chat.time}
         </p>
       </div>
-      <div className="w-9 h-9 bg-white self-end rounded-xl overflow-hidden flex items-center justify-center mr-2">
-        {user?.profile_image ? (
-          <Image
-            src={getImageURL(user?.profile_image ?? "")}
-            alt="profile"
-            width={36}
-            height={36}
-          />
-        ) : (
-          <div className="size-full flex items-center text-black justify-center">
-            <p className="text-sm font-medium">{initials}</p>
-          </div>
-        )}
-      </div>
+    </div>
     </div>
   );
 };
