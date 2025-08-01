@@ -20,7 +20,7 @@ export default function ChatList() {
       ref={messageContainerRef}
     >
       <>
-        {!isSendingMessage && (
+        {isSendingMessage && (
           <div className="flex items-center justify-end py-4 pr-4">
             <div className="loader"></div>
           </div>
