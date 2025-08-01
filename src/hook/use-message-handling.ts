@@ -12,6 +12,8 @@ export const useMessageHandling = (socketRef: React.RefObject<WebSocket | null>,
   const handleSendMessage = useCallback(async (messageInput: UserInput, setMessageInput: (value: React.SetStateAction<UserInput>) => void, messageInputRef: React.RefObject<HTMLTextAreaElement | null>, messageContainerRef: React.RefObject<HTMLDivElement | null>, setPage: (page: number) => void) => {
     if (!userId || !roomId || !socketRef.current) return;
 
+
+
     const input = messageInput.type == "image" ? messageInput?.media?.caption ?? '' : messageInput.text
 
     const messageBody = {
@@ -59,7 +61,9 @@ export const useMessageHandling = (socketRef: React.RefObject<WebSocket | null>,
     }
 
     try {
+
       setIsSendingMessage(true)
+      
       socketRef.current?.send(JSON.stringify(messageBody));
 
       setMessageInput({

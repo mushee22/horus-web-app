@@ -2,7 +2,15 @@ import CommunityList from "@/components/elements/community/community-list";
 import Container from "@/components/elements/container";
 import { PropsWithChildren } from "react";
 
-export default function layout({ children }: PropsWithChildren) {
+interface Props extends PropsWithChildren {
+  params: Promise<{
+    slug: string;
+  }>;
+}
+
+export default async function layout({ children }: Props) {
+
+
   return (
     <Container className=" pt-0 pl-0 !pr-0 pb-0 flex md:py-0 flex-col">
       <div className="md:flex-1  md:flex">

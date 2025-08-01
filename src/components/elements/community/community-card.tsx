@@ -1,5 +1,5 @@
 import { getImageURL } from "@/lib/fetch";
-import { getDisplayName, getInitials } from "@/lib/utils";
+import { cn, getDisplayName, getInitials } from "@/lib/utils";
 import { Community } from "@/type";
 import { Image as ImageIcon } from "lucide-react";
 import Image from "next/image";
@@ -8,6 +8,7 @@ import React from "react";
 
 interface Props extends Community {
   show?: boolean;
+  isActive?: boolean;
 }
 
 export default function CommunityCard({
@@ -16,6 +17,7 @@ export default function CommunityCard({
   name = "",
   unread_count = 0,
   last_message,
+  isActive = false,
 }: Props) {
   const lastMessageTime = last_message?.time ?? "";
 
@@ -25,7 +27,7 @@ export default function CommunityCard({
   return (
     <>
     <Link href={`/community/${id}`} className="md:hidden">
-        <div className="flex w-full items-center gap-x-3.5 p-2 hover:bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-md cursor-pointer">
+        <div className={cn("flex w-full items-center gap-x-3.5 p-2 hover:bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-md cursor-pointer", isActive ? "bg-foreground/10" : "")}>
           <div className="h-[52px] w-[52px] bg-gray-200 rounded-xl overflow-hidden relative">
             {profile_image ? (
               <Image
@@ -73,7 +75,7 @@ export default function CommunityCard({
         </div>
     </Link>
     <Link href={`/community/${id}`} replace className="hidden md:block">
-        <div className="flex w-full items-center gap-x-3.5 p-2 hover:bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-md cursor-pointer">
+        <div className={cn("flex w-full items-center gap-x-3.5 p-2 hover:bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-md cursor-pointer", isActive ? "bg-foreground/10" : "")}>
           <div className="h-[52px] w-[52px] bg-gray-200 rounded-xl overflow-hidden relative">
             {profile_image ? (
               <Image
