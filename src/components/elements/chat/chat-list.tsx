@@ -11,6 +11,7 @@ export default function ChatList() {
     messageContainerRef,
     fetchNextPage,
     isNextPageAvilable,
+    isSendingMessage,
   } = useChat();
 
   return (
@@ -19,6 +20,11 @@ export default function ChatList() {
       ref={messageContainerRef}
     >
       <>
+        {!isSendingMessage && (
+          <div className="flex items-center justify-end py-4 pr-4">
+            <div className="loader"></div>
+          </div>
+        )}
         {Object.keys(messages)?.map((key) =>
           messages[key as unknown as number].map((item, index) => (
             <div key={index}>
@@ -40,6 +46,7 @@ export default function ChatList() {
             </div>
           ))
         )}
+
         {isNextPageAvilable !== undefined && (
           <LoadMore
             fetchNextPage={fetchNextPage}
