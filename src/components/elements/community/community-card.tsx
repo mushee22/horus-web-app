@@ -113,11 +113,11 @@ export default function CommunityCard({
                 </>
               )}
 
-              {unread_count > 0 && (
+              {/* {unread_count > 0 && (
                 <p className="text-xs text-foreground rounded-xl font-light px-2 py-[2px] bg-foreground/10">
                   {unread_count}
                 </p>
-              )}
+              )} */}
             </div>
           </div>
         </div>
