@@ -45,9 +45,13 @@ export default function MessageMediaBody({
             <p className="text-sm font-light text-foreground/50">No media</p>
           </div>
         )}
-        <p className=" text-sm font-light whitespace-pre-wrap absolute bottom-0 left-0 right-0 p-2 bg-black/80 text-white">
-          {captions}
-        </p>
+        {
+          captions && (
+            <p className=" text-sm font-light whitespace-pre-wrap absolute bottom-0 left-0 right-0 p-2 bg-black/80 text-white">
+              {captions}
+            </p>
+          )
+        }
       </div>
     </div>
   );
