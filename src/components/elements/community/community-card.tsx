@@ -28,7 +28,7 @@ export default function CommunityCard({
     <>
     <Link href={`/community/${id}`} className="md:hidden">
         <div className={cn("flex w-full items-center gap-x-3.5 p-2 hover:bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-md cursor-pointer", isActive ? "bg-foreground/10" : "")}>
-          <div className="h-[52px] w-[52px] bg-primary/80 text-black rounded-xl overflow-hidden relative">
+          <div className="h-[52px] w-[52px] bg-white text-primary rounded-xl overflow-hidden relative">
             {profile_image ? (
               <Image
                 src={getImageURL(profile_image)}
@@ -76,7 +76,7 @@ export default function CommunityCard({
     </Link>
     <Link href={`/community/${id}`} replace className="hidden md:block">
         <div className={cn("flex w-full items-center gap-x-3.5 p-2 hover:bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-md cursor-pointer", isActive ? "bg-foreground/10" : "")}>
-          <div className="h-[52px] text-black w-[52px] bg-primary rounded-xl overflow-hidden relative">
+          <div className="h-[52px] text-primary w-[52px] bg-white rounded-xl overflow-hidden relative">
             {profile_image ? (
               <Image
                 src={getImageURL(profile_image)}

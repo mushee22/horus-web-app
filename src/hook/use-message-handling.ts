@@ -6,13 +6,23 @@ import { UserInput, Student } from '@/type';
 import { useCallback, useState } from 'react';
 
 export const useMessageHandling = (socketRef: React.RefObject<WebSocket | null>, user: Student | null, roomId: string, userId: number | undefined) => {
-  
+
   const [isSendingMessage, setIsSendingMessage] = useState(false);
+
+  const sendMessage = (data: string) => {
+    return new Promise((resolve: (value: string | PromiseLike<string>) => void, reject: (reason?: string | Error) => void) => {
+      setTimeout(() => {
+        if (!socketRef.current) {
+          reject(new Error("Socket is not connected"))
+          return
+        }
+        resolve(data)
+      }, 200)
+    })
+  }
 
   const handleSendMessage = useCallback(async (messageInput: UserInput, setMessageInput: (value: React.SetStateAction<UserInput>) => void, messageInputRef: React.RefObject<HTMLTextAreaElement | null>, messageContainerRef: React.RefObject<HTMLDivElement | null>, setPage: (page: number) => void) => {
     if (!userId || !roomId || !socketRef.current) return;
-
-
 
     const input = messageInput.type == "image" ? messageInput?.media?.caption ?? '' : messageInput.text
 
@@ -28,7 +38,10 @@ export const useMessageHandling = (socketRef: React.RefObject<WebSocket | null>,
     }
 
     if (messageInput.type === "image") {
+
       if (!messageInput.media?.file) return;
+
+      setIsSendingMessage(true)
 
       const formData = new FormData()
       formData.append("image", messageInput.media.file);
@@ -63,29 +76,34 @@ export const useMessageHandling = (socketRef: React.RefObject<WebSocket | null>,
     try {
 
       setIsSendingMessage(true)
-      
-      socketRef.current?.send(JSON.stringify(messageBody));
 
-      setMessageInput({
-        type: "text",
-        text: ""
+      sendMessage(JSON.stringify(messageBody)).then((data: string) => {
+        socketRef.current?.send(data)
+        setIsSendingMessage(false)
+        setMessageInput({
+          type: "text",
+          text: ""
+        })
+        queryClient.invalidateQueries({ queryKey: ['chat-list'] })
+        if (messageInputRef.current) {
+          messageInputRef.current.style.height = "40px"
+        }
+
+        if (messageContainerRef.current) {
+          messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+        }
+
+        setPage(1)
+      }).catch((error) => {
+        console.error('Error sending message:', error)
+      }).finally(() => {
+        setIsSendingMessage(false)
       })
-
-      queryClient.invalidateQueries({ queryKey: ['chat-list'] })
-      if (messageInputRef.current) {
-        messageInputRef.current.style.height = "40px"
-      }
-
-      if (messageContainerRef.current) {
-        messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
-      }
-
-      setPage(1)
 
     } catch (error) {
       console.error('Error sending message:', error)
     } finally {
-      setIsSendingMessage(false)
+      // setIsSendingMessage(false)
     }
   }, [userId, roomId, user, socketRef])
 

@@ -11,6 +11,7 @@ export default function useCommunity() {
     queryFn: () => {
       return fetcher("list-rooms/");
     },
+    refetchOnMount: true,
   });
 
   return {
