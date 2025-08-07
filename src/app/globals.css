@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "tailwindcss-animated";
 
 :root {
   --background: #0000;
@@ -37,6 +38,9 @@ body {
   background: var(--background);
   color: var(--foreground);
 }
+
+
+
 
 /* Loader animation for sending messages */
 .loader {

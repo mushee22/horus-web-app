@@ -33,13 +33,11 @@ export default function ChatMediaPreview() {
   if (!hasMedia) return null;
 
   return (
-    <div className="absolute inset-x-0 max-h-[80%] bottom-0 z-40 animate-in slide-in-from-bottom-2 duration-300 ease-out"
-     
-    >
+    <div className="absolute inset-x-0 max-h-[80%] bottom-0 z-40 animate-in slide-in-from-bottom-2 duration-300 ease-out">
       <div className="h-full bg-[#161717] pt-12  flex flex-col justify-center items-center rounded-se-2xl rounded-ss-2xl p-2">
         <div className="flex items-center flex-1 justify-center w-full flex-col gap-y-4 rounded-2xl">
           <div
-            className="flex items-center gap-2 w-full max-w-[95%] relative"
+            className="flex items-center gap-2 w-full max-w-[95%] max-h-[250px] relative"
             style={{
               aspectRatio:
                 userInput?.media?.props?.width &&

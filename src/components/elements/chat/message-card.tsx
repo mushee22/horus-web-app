@@ -22,9 +22,12 @@ const MessageCard = ({
 
   return (
     <div className={cn("flex", isUser ? "justify-end" : "")}>
-    <div
-      className={cn("flex mb-4 w-fit min-w-[300px]  cursor-pointer", isUser ? "justify-end " : "")}
-    >
+      <div
+        className={cn(
+          "flex mb-4 w-fit min-w-[300px]  cursor-pointer",
+          isUser ? "justify-end " : ""
+        )}
+      >
         {isUser ? (
           <></>
         ) : (
@@ -43,24 +46,29 @@ const MessageCard = ({
             )}
           </div>
         )}
-      <div className={cn("flex  flex-1 flex-col max-w-96  rounded-lg p-3 gap-3", isUser ? 'bg-[#F0B2671A]' : 'bg-[#FFFFFF0F]')}>
-        {isUser ? (
-          <></>
-        ) : (
-          <p className="text-sm font-medium ">
-            {chat?.sender?.user?.first_name || user?.user?.first_name}
+        <div
+          className={cn(
+            "flex  flex-1 flex-col max-w-96  rounded-lg p-3 gap-3",
+            isUser ? "bg-[#F0B2671A]" : "bg-[#FFFFFF0F]"
+          )}
+        >
+          {isUser ? (
+            <></>
+          ) : (
+            <p className="text-sm font-medium ">
+              {chat?.sender?.user?.first_name || user?.user?.first_name}
+            </p>
+          )}
+          {chat.image ? (
+            <MessageMediaBody captions={chat.content} mediaUrl={chat.image} />
+          ) : (
+            <MessageTexBody body={chat.content} />
+          )}
+          <p className="text-foreground/50 text-xs text-end font-light">
+            {chat.time}
           </p>
-        )}
-        {chat.image ? (
-          <MessageMediaBody captions={chat.content} mediaUrl={chat.image} />
-        ) : (
-          <MessageTexBody body={chat.content} />
-        )}
-        <p className="text-foreground/50 text-xs text-end font-light">
-          {chat.time}
-        </p>
+        </div>
       </div>
-    </div>
     </div>
   );
 };

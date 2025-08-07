@@ -28,7 +28,7 @@ export default function CommunityCard({
     <>
     <Link href={`/community/${id}`} className="md:hidden">
         <div className={cn("flex w-full items-center gap-x-3.5 p-2 hover:bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-md cursor-pointer", isActive ? "bg-foreground/10" : "")}>
-          <div className="h-[52px] w-[52px] bg-gray-200 rounded-xl overflow-hidden relative">
+          <div className="h-[52px] w-[52px] bg-primary/80 text-black rounded-xl overflow-hidden relative">
             {profile_image ? (
               <Image
                 src={getImageURL(profile_image)}
@@ -37,14 +37,14 @@ export default function CommunityCard({
                 className="object-cover"
               />
             ) : (
-              <div className="size-full flex items-center text-black justify-center">
-                <p className="text-sm font-medium">{initials}</p>
+              <div className="size-full flex items-center   justify-center">
+                <p className="text-sm font-bold">{initials}</p>
               </div>
             )}
           </div>
           <div className="space-y-1 flex-1">
             <div className="flex items-center  gap-x-2">
-              <h2 className="text-base font-medium flex-1">{`#${displayName}`}</h2>
+              <h2 className="text-base font-medium flex-1 text-primary">{`#${displayName}`}</h2>
               <p className="text-xs text-foreground/50 font-light">
                 {lastMessageTime ?? ""}
               </p>
@@ -66,7 +66,7 @@ export default function CommunityCard({
               )}
 
               {unread_count > 0 && (
-                <p className="text-xs text-foreground rounded-xl font-light px-2 py-[2px] bg-foreground/10">
+                <p className="text-xs text-black rounded-xl font-light px-2 py-[2px] bg-primary">
                   {unread_count}
                 </p>
               )}
@@ -76,7 +76,7 @@ export default function CommunityCard({
     </Link>
     <Link href={`/community/${id}`} replace className="hidden md:block">
         <div className={cn("flex w-full items-center gap-x-3.5 p-2 hover:bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-md cursor-pointer", isActive ? "bg-foreground/10" : "")}>
-          <div className="h-[52px] w-[52px] bg-gray-200 rounded-xl overflow-hidden relative">
+          <div className="h-[52px] text-black w-[52px] bg-primary rounded-xl overflow-hidden relative">
             {profile_image ? (
               <Image
                 src={getImageURL(profile_image)}
@@ -85,7 +85,7 @@ export default function CommunityCard({
                 className="object-cover"
               />
             ) : (
-              <div className="size-full flex items-center text-black justify-center">
+              <div className="size-full flex items-center  justify-center">
                 <p className="text-sm font-medium">{initials}</p>
               </div>
             )}
@@ -112,12 +112,6 @@ export default function CommunityCard({
                   </p>
                 </>
               )}
-
-              {/* {unread_count > 0 && (
-                <p className="text-xs text-foreground rounded-xl font-light px-2 py-[2px] bg-foreground/10">
-                  {unread_count}
-                </p>
-              )} */}
             </div>
           </div>
         </div>

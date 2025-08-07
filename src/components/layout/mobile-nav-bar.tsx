@@ -18,8 +18,8 @@ export default function MobileNavBar() {
 
   return (
     <div
-      className={cn(
-        pathname.includes("community") ? "max-md:hidden" : "",
+        className={cn(
+        pathname.match(/^\/community\/[^\/\s]+$/) !== null ? "max-md:hidden" : "",
         "fixed z-20 bottom-0 inset-x-0 md:inset-y-0 md:w-[230px] max-md:h-[83px] md:pt-8 flex md:flex-col max-md:items-center max-md:justify-around"
       )}
       style={{

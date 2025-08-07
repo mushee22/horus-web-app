@@ -169,6 +169,7 @@ export interface ChatContextState {
     messageContainerRef?: React.RefObject<HTMLDivElement | null>
     user: Student | null;
     roomName?: string;
+    currentPage: number;
 }
 
 interface Media {

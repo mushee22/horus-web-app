@@ -21,7 +21,8 @@ export const ChatContext = React.createContext<ChatContextState>({
   userInput: {
     type: "text",
   },
-  user: null
+  user: null,
+  currentPage: 1,
 });
 
 export default function ChatContextProvider({ children }: PropsWithChildren) {
@@ -82,6 +83,7 @@ export default function ChatContextProvider({ children }: PropsWithChildren) {
     isSendingMessage,
     user,
     roomName,
+    currentPage: page,
     isNextPageAvilable: data && data?.results?.data.length > 0 && data?.next !== null,
     fetchNextPage: handleNextPage,
     onEmojiClick: (emoji: string) => handleEmojiClick(emoji, messageInput, setMessageInput),
