@@ -26,7 +26,7 @@ export default function useCommunity() {
   };
 
   const { socketRef } = useWs({
-    path: `community/${user?.user.id}`,
+    path: `notifications/${user?.user.id}`,
     isEnabled: !!user,
     onMessage: handleUpdatedMessage,
     onClose: () => {},

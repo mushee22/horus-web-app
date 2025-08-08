@@ -1,17 +1,15 @@
 'use client'
 
 import { queryClient } from '@/lib/client';
-import { useCallback, useEffect, useState } from 'react';
-import useWs from './use-ws';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 const getCommunityWsUrl = (roomId: string, userId: number) => {
   return `${process.env.NEXT_PUBLIC_WS_URL}community/${roomId}/${userId}/`;
 }
 
-
-
 export const useWebSocket = (roomId: string, userId: number | undefined, isLoadingMessages: boolean, onMessage: (message: string, source: "ON_MESSAGE" | "SEND_MESSAGE") => void) => {
 
+  const socketRef = useRef<WebSocket | null>(null);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -32,7 +30,7 @@ export const useWebSocket = (roomId: string, userId: number | undefined, isLoadi
     } catch (error) {
       console.error('Error parsing WebSocket message:', error)
     }
-  }, [onMessage, isMobile])
+  }, [ onMessage, isMobile])
 
   const handleOnClose = useCallback(() => { }, [])
 
@@ -41,47 +39,36 @@ export const useWebSocket = (roomId: string, userId: number | undefined, isLoadi
   }, [])
 
   const handleOnOpen = useCallback(() => {
-    console.log("WebSocket connection opened")
+    // console.log("WebSocket connection opened")
   }, [])
 
-  const {
-    socketRef: wsSocketRef
-  } = useWs({
-    path: getCommunityWsUrl(roomId, userId || 0),
-    isEnabled: (!!userId && !!roomId && !isLoadingMessages),
-    onMessage: handleOnMessage,
-    onError: handleOnError,
-    onClose: handleOnClose,
-    onOpen: handleOnOpen,
-  })
+  const connectWebSocket = useCallback(() => {
+    if (!userId || !roomId || isLoadingMessages) return;
 
-  // const connectWebSocket = useCallback(() => {
-  //   if (!userId || !roomId || isLoadingMessages) return;
+    if (socketRef.current) {
+      socketRef.current.close()
+    }
 
-  //   if (socketRef.current) {
-  //     socketRef.current.close()
-  //   }
+    const url = getCommunityWsUrl(roomId, userId)
+    const socket = new WebSocket(url);
 
-  //   const url = getCommunityWsUrl(roomId, userId)
-  //   const socket = new WebSocket(url);
+    socket.onopen = handleOnOpen
+    socket.onmessage = handleOnMessage
+    socket.onclose = handleOnClose
+    socket.onerror = handleOnError
 
-  //   socket.onopen = handleOnOpen
-  //   socket.onmessage = handleOnMessage
-  //   socket.onclose = handleOnClose
-  //   socket.onerror = handleOnError
+    socketRef.current = socket;
+  }, [userId, roomId, isLoadingMessages, handleOnMessage, handleOnClose, handleOnError, handleOnOpen])
 
-  //   socketRef.current = socket;
-  // }, [userId, roomId, isLoadingMessages, handleOnMessage, handleOnClose, handleOnError, handleOnOpen])
+  useEffect(() => {
+    connectWebSocket()
+    return () => {
+      if (socketRef.current) {
+        socketRef.current.close()
+        socketRef.current = null
+      }
+    }
+  }, [connectWebSocket])
 
-  // useEffect(() => {
-  //   connectWebSocket()
-  //   return () => {
-  //     if (socketRef.current) {
-  //       socketRef.current.close()
-  //       socketRef.current = null
-  //     }
-  //   }
-  // }, [connectWebSocket])
-
-  return { socketRef: wsSocketRef }
+  return { socketRef }
 }
