@@ -137,6 +137,7 @@ export interface Message {
     id: number,
     community: number,
     content: string;
+    date?: string;
     created_date?: string;
     created_time?: string;
     created_time?: string;

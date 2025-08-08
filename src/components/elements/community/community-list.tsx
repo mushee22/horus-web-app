@@ -14,7 +14,7 @@ export default function CommunityList() {
           ? Array.from({ length: 7 }).map((_, index) => (
               <CommunityCardSkeleton key={index} />
             ))
-          : data?.data?.map((community, index) => (
+          : data?.map((community, index) => (
               <CommunityCard
                 {...community}
                 key={index}
