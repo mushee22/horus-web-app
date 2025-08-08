@@ -15,8 +15,6 @@ export default function useCommunity() {
     refetchOnMount: 'always'
   });
 
-
-
   return {
     slug: roomId,
     data,

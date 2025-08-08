@@ -1,5 +1,13 @@
-import CommunityList from "@/components/elements/community/community-list";
+'use client'
 import Header from "@/components/elements/community/header";
+import dynamic from "next/dynamic";
+
+const CommunityList = dynamic(
+  () => import("@/components/elements/community/community-list"),
+  {
+    ssr: false,
+  }
+);
 
 export default function Page() {
   return (
