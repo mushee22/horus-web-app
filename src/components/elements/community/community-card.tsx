@@ -62,7 +62,7 @@ export default function CommunityCard({
           </div>
           <div className="space-y-1 flex-1">
             <div className="flex items-center  gap-x-2">
-              <h2 className="text-base font-medium  text-primary">{`#${displayName}`}</h2>
+              <h2 className="text-base font-medium  text-start text-primary flex-1">{`#${displayName}`}</h2>
               <p className="text-xs text-foreground/50 font-light">
                 {lastMessageTime ?? ""}
               </p>
