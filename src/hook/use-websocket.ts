@@ -1,27 +1,36 @@
 'use client'
 
 import { queryClient } from '@/lib/client';
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 const getCommunityWsUrl = (roomId: string, userId: number) => {
   return `${process.env.NEXT_PUBLIC_WS_URL}community/${roomId}/${userId}/`;
 }
 
-export const useWebSocket = (roomId: string, userId: number | undefined, isLoadingMessages: boolean) => {
+export const useWebSocket = (roomId: string, userId: number | undefined, isLoadingMessages: boolean, onMessage: (message: string) => void) => {
 
   const socketRef = useRef<WebSocket | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768)
+  }, [])
+
 
   const handleOnMessage = useCallback((ev: MessageEvent) => {
     try {
       const currentMessage = JSON.parse(ev.data)
       if (currentMessage.type === "chat" || currentMessage.type === "image") {
-        queryClient.invalidateQueries({ queryKey: ['chat', roomId] })
-        queryClient.invalidateQueries({ queryKey: ['chat-list'] })
+        console.log('currentMessage', currentMessage)
+        onMessage(ev.data);
+        if (!isMobile) {
+          queryClient.invalidateQueries({ queryKey: ['chat-list'] })
+        }
       }
     } catch (error) {
       console.error('Error parsing WebSocket message:', error)
     }
-  }, [roomId])
+  }, [ onMessage, isMobile])
 
   const handleOnClose = useCallback(() => { }, [])
 
@@ -30,7 +39,7 @@ export const useWebSocket = (roomId: string, userId: number | undefined, isLoadi
   }, [])
 
   const handleOnOpen = useCallback(() => {
-    console.log("WebSocket connection opened")
+    // console.log("WebSocket connection opened")
   }, [])
 
   const connectWebSocket = useCallback(() => {
@@ -62,4 +71,4 @@ export const useWebSocket = (roomId: string, userId: number | undefined, isLoadi
   }, [connectWebSocket])
 
   return { socketRef }
-} 
+}

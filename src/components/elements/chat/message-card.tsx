@@ -12,7 +12,7 @@ const MessageCard = ({
 }: {
   chat: Message;
   userType: "user" | "system";
-  user: Student;
+  user?: Student;
 }) => {
   const isUser = userType == "user";
 

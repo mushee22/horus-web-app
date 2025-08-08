@@ -43,7 +43,7 @@ export default function AuthContextProvider({ children }: PropsWithChildren) {
         queryKey: ['session'],
         queryFn: async () => {
             const { isAuthenticated, token, userId } = await getSession();
-            console.log('sessionData', { isAuthenticated, token, userId });
+            // console.log('sessionData', { isAuthenticated, token, userId });
             return {
                 isAuthenticated,
                 token,
@@ -95,7 +95,7 @@ export default function AuthContextProvider({ children }: PropsWithChildren) {
             return
         }
 
-        console.log('Error fetching user data:', data);
+        // console.log('Error fetching user data:', data);
 
         setContextState({
             isAuthenticated: !isError || !!sessionData?.isAuthenticated,

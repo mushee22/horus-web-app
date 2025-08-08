@@ -6,7 +6,7 @@ import CommunityCardSkeleton from "./community-card-skeleton";
 export default function CommunityList() {
   const { data, slug, isLoading } = useCommunity();
 
-  console.log(slug);
+  // console.log(slug);
 
   return (
     <>

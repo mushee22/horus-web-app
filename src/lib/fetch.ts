@@ -16,6 +16,13 @@ export const getImageURL = (path: string) => {
     return `${baseURL}${path}`;
 }
 
+export const getChatMediaURL = (path: string) => {
+    const isDevelopment = process.env.NEXT_PUBLIC_ENV === "development";
+    const MEDIA_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:8000/';
+    const baseURL = isDevelopment ? MEDIA_URL + 'media/' : process.env.NEXT_PUBLIC_S3_BUCKET_URL;
+    return `${baseURL}${path}`;
+}
+
 export const getAuthAccessToken = async () => {
     const { token } = await getSession();
     return token;

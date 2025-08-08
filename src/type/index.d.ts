@@ -135,15 +135,15 @@ export interface ChatRoom  {
 
 export interface Message {
     id: number,
-    community: Community,
+    community: number,
     content: string;
-    created_date: string;
-    created_date: string;
-    created_time: string;
-    modified_date: string;
-    modified_time: string;
+    created_date?: string;
+    created_time?: string;
+    created_time?: string;
+    modified_date?: string;
+    modified_time?: string;
     time: string;
-    sender: Student;
+    sender?: Student;
     image?: string;
 }
 

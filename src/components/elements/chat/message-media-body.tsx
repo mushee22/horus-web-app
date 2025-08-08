@@ -1,4 +1,3 @@
-import { getImageURL } from "@/lib/fetch";
 import Image from "next/image";
 import React, { useState } from "react";
 
@@ -13,28 +12,11 @@ export default function MessageMediaBody({
 
   return (
     <div>
-      {open ? (
-        <div className="fixed  inset-0 flex bg-black/15 flex-col z-30 justify-center items-center">
-          <div
-            className="absolute z-10 inset-0 bg-black/30"
-            onClick={() => setOpen(false)}
-          ></div>
-          <div className="aspect-video animate-fade z-20 w-[90%]  mx-auto relative">
-            <Image
-              src={getImageURL(mediaUrl)}
-              alt="image"
-              fill
-              className="object-cover"
-            />
-          </div>
-        </div>
-      ) : (
-        <></>
-      )}
+      <ImagePreview image={mediaUrl} show={open} onOpenChange={setOpen} />
       <div className="relative size-full aspect-video">
         {mediaUrl ? (
           <Image
-            src={getImageURL(mediaUrl)}
+            src={mediaUrl}
             alt="image"
             fill
             className="object-cover"
@@ -55,4 +37,26 @@ export default function MessageMediaBody({
       </div>
     </div>
   );
+}
+
+
+const ImagePreview = ({ image, show, onOpenChange }:{ image: string, show?:boolean, onOpenChange?: (state: boolean) => void }) => {
+  
+  if(!show) {
+    return null
+  }
+  
+  return (
+    <div className="fixed  inset-0 flex bg-black/15 flex-col z-30 justify-center items-center">
+          <div className="absolute z-10 inset-0 bg-black/30" onClick={() => onOpenChange?.(false)}></div>
+          <div className="aspect-video animate-fade z-20 w-[90%]  mx-auto relative">
+            <Image
+              src={image}
+              alt="image"
+              fill
+              className="object-cover"
+            />
+          </div>
+    </div>
+   )
 }

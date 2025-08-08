@@ -26,11 +26,11 @@ export async function signIn(state: AuthFormState, formData: FormData) {
         }
     }
 
-    const email = formData.get('email');
+    // const email = formData.get('email');
     // const password = formData.get('password');
 
     try{
-        console.log('email', email);
+        // console.log('email', email);
         const { access } = await fetcher(LOGIN_URL, {
             method: LOGIN_URL_METHOD,
             body: JSON.stringify({  
@@ -40,7 +40,7 @@ export async function signIn(state: AuthFormState, formData: FormData) {
             isGuest: true,
         });
 
-        console.log('access', access);
+        // console.log('access', access);
 
         await createSession(`${name}`, access);
 

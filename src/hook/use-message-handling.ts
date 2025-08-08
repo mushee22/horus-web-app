@@ -9,19 +9,9 @@ export const useMessageHandling = (socketRef: React.RefObject<WebSocket | null>,
 
   const [isSendingMessage, setIsSendingMessage] = useState(false);
 
-  const sendMessage = (data: string) => {
-    return new Promise((resolve: (value: string | PromiseLike<string>) => void, reject: (reason?: string | Error) => void) => {
-      setTimeout(() => {
-        if (!socketRef.current) {
-          reject(new Error("Socket is not connected"))
-          return
-        }
-        resolve(data)
-      }, 200)
-    })
-  }
+ 
 
-  const handleSendMessage = useCallback(async (messageInput: UserInput, setMessageInput: (value: React.SetStateAction<UserInput>) => void, messageInputRef: React.RefObject<HTMLTextAreaElement | null>, messageContainerRef: React.RefObject<HTMLDivElement | null>, setPage: (page: number) => void) => {
+  const handleSendMessage = useCallback(async (messageInput: UserInput, setMessageInput: (value: React.SetStateAction<UserInput>) => void, messageInputRef: React.RefObject<HTMLTextAreaElement | null>, messageContainerRef: React.RefObject<HTMLDivElement | null>) => {
     if (!userId || !roomId || !socketRef.current) return;
 
     const input = messageInput.type == "image" ? messageInput?.media?.caption ?? '' : messageInput.text
@@ -75,11 +65,11 @@ export const useMessageHandling = (socketRef: React.RefObject<WebSocket | null>,
 
     try {
 
-      setIsSendingMessage(true)
+      setIsSendingMessage(true);
+      
+      socketRef.current?.send(JSON.stringify(messageBody));
 
-      sendMessage(JSON.stringify(messageBody)).then((data: string) => {
-        socketRef.current?.send(data)
-        setIsSendingMessage(false)
+      setIsSendingMessage(false)
         setMessageInput({
           type: "text",
           text: ""
@@ -93,17 +83,10 @@ export const useMessageHandling = (socketRef: React.RefObject<WebSocket | null>,
           messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
         }
 
-        setPage(1)
-      }).catch((error) => {
-        console.error('Error sending message:', error)
-      }).finally(() => {
-        setIsSendingMessage(false)
-      })
-
     } catch (error) {
       console.error('Error sending message:', error)
     } finally {
-      // setIsSendingMessage(false)
+      setIsSendingMessage(false)
     }
   }, [userId, roomId, user, socketRef])
 

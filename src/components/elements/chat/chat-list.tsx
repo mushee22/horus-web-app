@@ -47,8 +47,8 @@ export default function ChatList() {
                     <MessageCard
                       key={index}
                       chat={chat}
-                      userType={chat.sender.id == user?.id ? "user" : "system"}
-                      user={chat.sender}
+                      userType={chat?.sender?.id == user?.id ? "user" : "system"}
+                      user={chat?.sender || undefined}
                     />
                   ))}
                 </div>
