@@ -9,7 +9,7 @@ const ChatHeader = () => {
   const roomName = getDisplayName(community?.name ?? "");
 
   return (
-    <div className="shadow-md py-2 h-[60px]  flex gap-x-3  items-center bg-black/50 pl-2">
+    <div className="shadow-md py-2 h-[60px]  flex gap-x-3  items-center bg-black/50 pl-4">
       <BackButton className=" md:hidden" />
       {isLoadingMessage && currentPage == 1 ? (
         <div className="h-2 w-full bg-white animate-pulse max-w-[200px]  rounded-xl overflow-hidden relative"></div>
