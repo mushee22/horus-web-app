@@ -1,6 +1,6 @@
 'use client'
 
-import { queryClient } from '@/lib/client';
+import { format } from 'date-fns';
 import { getURL } from '@/lib/fetch';
 import { UserInput, Student } from '@/type';
 import { useCallback, useState } from 'react';
@@ -8,10 +8,8 @@ import { useCallback, useState } from 'react';
 export const useMessageHandling = (socketRef: React.RefObject<WebSocket | null>, user: Student | null, roomId: string, userId: number | undefined) => {
 
   const [isSendingMessage, setIsSendingMessage] = useState(false);
-
- 
-
-  const handleSendMessage = useCallback(async (messageInput: UserInput, setMessageInput: (value: React.SetStateAction<UserInput>) => void, messageInputRef: React.RefObject<HTMLTextAreaElement | null>, messageContainerRef: React.RefObject<HTMLDivElement | null>) => {
+  
+  const handleSendMessage = useCallback(async (messageInput: UserInput, setMessageInput: (value: React.SetStateAction<UserInput>) => void, messageInputRef: React.RefObject<HTMLTextAreaElement | null>, moveFocusToLatestMessage: () => void, onCompleteSendMessage: (message: string, source: "ON_MESSAGE" | "SEND_MESSAGE") => void) => {
     if (!userId || !roomId || !socketRef.current) return;
 
     const input = messageInput.type == "image" ? messageInput?.media?.caption ?? '' : messageInput.text
@@ -74,14 +72,25 @@ export const useMessageHandling = (socketRef: React.RefObject<WebSocket | null>,
           type: "text",
           text: ""
         })
-        queryClient.invalidateQueries({ queryKey: ['chat-list'] })
+        
+        const message = JSON.stringify({
+          type: messageBody.image_url ? 'image' : 'chat',
+          message: messageBody.message,
+          sender: userId,
+          time: format(Date.now(), 'hh:mm a'),
+          first_name: messageBody.first_name,
+          profile_pic: messageBody.profile_pic,
+          is_admin: messageBody.is_admin,
+          image: messageBody.image_url ?? "",
+        })
+
+        onCompleteSendMessage(message, 'SEND_MESSAGE')
+
         if (messageInputRef.current) {
           messageInputRef.current.style.height = "40px"
         }
 
-        if (messageContainerRef.current) {
-          messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
-        }
+        moveFocusToLatestMessage?.()
 
     } catch (error) {
       console.error('Error sending message:', error)

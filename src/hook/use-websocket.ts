@@ -7,7 +7,7 @@ const getCommunityWsUrl = (roomId: string, userId: number) => {
   return `${process.env.NEXT_PUBLIC_WS_URL}community/${roomId}/${userId}/`;
 }
 
-export const useWebSocket = (roomId: string, userId: number | undefined, isLoadingMessages: boolean, onMessage: (message: string) => void) => {
+export const useWebSocket = (roomId: string, userId: number | undefined, isLoadingMessages: boolean, onMessage: (message: string, source: "ON_MESSAGE" | "SEND_MESSAGE") => void) => {
 
   const socketRef = useRef<WebSocket | null>(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -22,7 +22,7 @@ export const useWebSocket = (roomId: string, userId: number | undefined, isLoadi
       const currentMessage = JSON.parse(ev.data)
       if (currentMessage.type === "chat" || currentMessage.type === "image") {
         console.log('currentMessage', currentMessage)
-        onMessage(ev.data);
+        onMessage(ev.data, 'ON_MESSAGE');
         if (!isMobile) {
           queryClient.invalidateQueries({ queryKey: ['chat-list'] })
         }

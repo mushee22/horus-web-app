@@ -62,6 +62,13 @@ export default function ChatContextProvider({ children }: PropsWithChildren) {
 
   const userId = user?.user?.id;
 
+  const moveFocusToLatestMessage = useCallback(() => {
+    if (messageContainerRef.current) {
+      messageContainerRef.current.scrollTop =
+        messageContainerRef.current.scrollHeight;
+    }
+  }, []);
+
   const updatedMessageWithDate = useCallback(
     (currentData: Record<number, MessageWithDate[]>, newMessage: Message) => {
       const appendPageNumber = 1;
@@ -120,8 +127,6 @@ export default function ChatContextProvider({ children }: PropsWithChildren) {
         };
       }
 
-
-
       return {
         community: parseInt(roomId),
         id: 0,
@@ -135,10 +140,14 @@ export default function ChatContextProvider({ children }: PropsWithChildren) {
   );
 
   const handleUpdateMessage = useCallback(
-    (message: string) => {
+    (message: string, source: "ON_MESSAGE" | "SEND_MESSAGE") => {
       const parsedMesage: NewSocketMessage = JSON.parse(message);
       const newMessTransformed = transformMessage(parsedMesage);
-
+      if (
+        source == "ON_MESSAGE" &&
+        newMessTransformed.sender?.id != user?.user?.id
+      )
+        return;
       setMessageWithDate((prev) => {
         const appendPageNumber = 1;
         return {
@@ -146,8 +155,10 @@ export default function ChatContextProvider({ children }: PropsWithChildren) {
           [appendPageNumber]: updatedMessageWithDate(prev, newMessTransformed),
         };
       });
+
+      moveFocusToLatestMessage()
     },
-    [transformMessage, updatedMessageWithDate]
+    [transformMessage, updatedMessageWithDate, moveFocusToLatestMessage, user]
   );
 
   const { data, isLoading: isLoadingMessages } = useQuery<ChatRoom>({
@@ -224,7 +235,8 @@ export default function ChatContextProvider({ children }: PropsWithChildren) {
           messageInput,
           setMessageInput,
           messageInputRef,
-          messageContainerRef
+          moveFocusToLatestMessage,
+          handleUpdateMessage
         )
       ),
     onSendMessage: () =>
@@ -232,7 +244,8 @@ export default function ChatContextProvider({ children }: PropsWithChildren) {
         messageInput,
         setMessageInput,
         messageInputRef,
-        messageContainerRef
+        moveFocusToLatestMessage,
+        handleUpdateMessage
       ),
     onMediaPick: (e: React.ChangeEvent<HTMLInputElement>) =>
       handleMediaPicker(e, setMessageInput),
