@@ -41,14 +41,14 @@ export const useWebSocket = (roomId: string, userId: number | undefined, isLoadi
   }, [])
 
   const handleOnOpen = useCallback(() => {
-    // console.log("WebSocket connection opened")
+    console.log("WebSocket connection opened")
   }, [])
 
   const {
     socketRef: wsSocketRef
   } = useWs({
     path: getCommunityWsUrl(roomId, userId || 0),
-    isEnabled: (!userId || !roomId || isLoadingMessages),
+    isEnabled: (!!userId && !!roomId && !isLoadingMessages),
     onMessage: handleOnMessage,
     onError: handleOnError,
     onClose: handleOnClose,
