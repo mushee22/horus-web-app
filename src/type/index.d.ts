@@ -155,6 +155,7 @@ export interface ChatContextState {
     messages: Record<number, MessageWithDate[]>;
     community?: Community;
     isLoadingMessage: boolean;
+    isPageIntialLoad: boolean;
     onSendMessage?: () => void;
     onEmojiClick?: (emoji: string) => void;
     onInput?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;

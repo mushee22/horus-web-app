@@ -16,6 +16,7 @@ export default function ChatList() {
     currentPage,
     isSendingMessage,
     isLoadingMessage,
+    isPageIntialLoad,
   } = useChat();
 
   return (
@@ -29,7 +30,7 @@ export default function ChatList() {
             <div className="loader"></div>
           </div>
         )}
-        {isLoadingMessage && currentPage == 1
+        {(isLoadingMessage && currentPage == 1) || isPageIntialLoad 
           ? Array.from({ length: 8 }).map((_, index) => (
               <MessageCardSkeleton index={index} key={index} />
             ))

@@ -40,10 +40,13 @@ export const ChatContext = React.createContext<ChatContextState>({
   },
   user: null,
   currentPage: 1,
+  isPageIntialLoad: true,
 });
 
 export default function ChatContextProvider({ children }: PropsWithChildren) {
   const [page, setPage] = useState(1);
+  const [isPageIntialLoad, setIsPageIntialLoad] = useState(true);
+
   const [messageWitDate, setMessageWithDate] = useState<
     Record<number, MessageWithDate[]>
   >({ 1: [] });
@@ -198,6 +201,7 @@ export default function ChatContextProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     if (data) {
+      setIsPageIntialLoad(false);
       setMessageWithDate((prev) => ({
         ...prev,
         [page]: data.results?.data.toReversed() || [],
@@ -250,6 +254,7 @@ export default function ChatContextProvider({ children }: PropsWithChildren) {
     onMediaPick: (e: React.ChangeEvent<HTMLInputElement>) =>
       handleMediaPicker(e, setMessageInput),
     setMessageInput,
+    isPageIntialLoad: isPageIntialLoad,
   };
 
   return (
