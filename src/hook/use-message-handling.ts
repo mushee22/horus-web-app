@@ -51,13 +51,13 @@ export const useMessageHandling = (socketRef: React.RefObject<WebSocket | null>,
 
         const data = await response.json();
         messageBody.image_url = data.image_url ?? undefined
-
       } catch (error) {
         console.log(error)
         setMessageInput((prev) => ({
           ...prev,
           error: "Failed to upload image"
         }))
+        return
       }
     }
 

@@ -18,7 +18,6 @@ export default function MessageInput() {
 
   return (
     <div className=" bg-black px-2 sm:px-5 pt-5 pb-8 w-full flex items-center  gap-x-3">
-
       <ChatMediaPicker />
       <div className="flex items-center min-h-9 bg-[#FFFFFF14] rounded-[18px] z-10 flex-1">
         <textarea
@@ -34,7 +33,6 @@ export default function MessageInput() {
           onInput={(e) => {
             const target = e.target as HTMLTextAreaElement;
             target.style.height = target.scrollHeight + "px";
-
             if (target.value.length == 0) {
               target.style.height = "40px";
             }
@@ -42,15 +40,8 @@ export default function MessageInput() {
         />
       </div>
       <EmojiPicker onEmojiClick={onEmojiClick} />
-      {/* <button
-        disabled={isSendingMessage || userInput?.text?.length == 0}
-        className="size-9 min-w-9 disabled:cursor-not-allowed rounded-full flex items-center bg-[#F0B267] justify-center"
-        onClick={onSendMessage}
-      >
-        <Send size={16} className="text-black" />
-      </button> */}
       <ChatSendMessageButton
-        disabled={isSendingMessage || userInput?.text?.length == 0}
+        disabled={isSendingMessage || (userInput?.text || '').length == 0}
         onClick={onSendMessage}
         isLoading={isSendingMessage}
       />

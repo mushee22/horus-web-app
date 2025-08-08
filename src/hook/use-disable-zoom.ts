@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 
-export default function ViewportManager() {
+export default function useDisableZoom() {
   useEffect(() => {
 
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
