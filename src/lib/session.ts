@@ -40,4 +40,21 @@ export async function getSession() {
 export async function deleteSession() {
     const cookieStore = await cookies()
     cookieStore.delete('session')
+    
+    const expiredDate = new Date(0); 
+    cookieStore.set('session', '', {
+        expires: expiredDate,
+        path: '/',
+    });
+
+    cookieStore.set('session', '', {
+        httpOnly: true,
+        secure: false,
+        expires: expiredDate,
+        sameSite: 'lax',
+        path: '/',
+    });
+
+    
+
 }
