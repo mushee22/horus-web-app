@@ -1,21 +1,20 @@
-// import { useAuthContext } from "@/context/auth-context";
-import { useAuthContext } from "@/context/auth-context";
+
 import { fetcher } from "@/lib/fetch";
 import { Community, Response } from "@/type";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import {  useMemo } from "react";
 import { parse } from 'date-fns'
 // import useWs from "./use-ws";
 
 export default function useCommunity() {
   const roomId = useParams().slug as string;
 
-  const socketRef = useRef<WebSocket | null>(null);
+  
 
-  const { user } = useAuthContext();
+ 
 
-  const { data, isLoading, refetch } = useQuery<Response<Community[]>>({
+  const { data, isLoading } = useQuery<Response<Community[]>>({
     queryKey: ["chat-list"],
     queryFn: () => {
       return fetcher("list-rooms/");
@@ -23,35 +22,7 @@ export default function useCommunity() {
     refetchOnMount: "always",
   });
 
-  const handleUpdatedMessage = useCallback(
-    (ev: MessageEvent) => {
-      const currentMessage = JSON.parse(ev.data);
-      if (currentMessage.type == "notification") {
-        console.log('currentMessage', currentMessage)
-        refetch();
-      }
-    },
-    [refetch]
-  );
-
-  const connectToSocket = useCallback(() => {
-    if (!user || !user.user?.id) return;
-    const path = `${process.env.NEXT_PUBLIC_WS_URL}notifications/${user.user.id}/`;
-    socketRef.current = new WebSocket(path);
-    socketRef.current.addEventListener("message", handleUpdatedMessage);
-    return () => {
-      socketRef.current?.removeEventListener("message", handleUpdatedMessage);
-      socketRef.current?.close();
-      socketRef.current = null;
-    };
-  }, [user, handleUpdatedMessage]);
-
-  useEffect(() => {
-    const disconnectFromSocket = connectToSocket();
-    return () => {
-      disconnectFromSocket?.();
-    };
-  }, [connectToSocket]);
+ 
 
   const sortRoomListBasedOnLasMessageTime = useMemo(() => {
     if (!data?.data) return [];

@@ -1,4 +1,5 @@
 
+import MessageAlert from '@/components/elements/message-alert';
 import MobileNavBar from '@/components/layout/mobile-nav-bar';
 import AuthContextProvider from '@/context/auth-context';
 import { getSession } from '@/lib/session';
@@ -17,6 +18,7 @@ export default async function layout({ children }: PropsWithChildren) {
             <AuthContextProvider>
                 {children}
                 <MobileNavBar />
+                <MessageAlert/>
             </AuthContextProvider>
         </div>
     )

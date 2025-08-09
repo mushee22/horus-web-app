@@ -1,31 +1,59 @@
-'use client'
-import React, { useEffect } from "react";
+"use client";
+import React, { useCallback, useEffect } from "react";
 import { Alert, AlertTitle } from "../ui/alert";
-import { MessageSquare } from "lucide-react";
+import { MessageSquare, XIcon } from "lucide-react";
 import { useAuthContext } from "@/context/auth-context";
+import { useRouter } from "next/navigation";
 
 export default function MessageAlert() {
   const { alertProps, setAlertProps } = useAuthContext();
 
+  const router = useRouter();
+
+  const handleClose = useCallback(() => {
+    if (!alertProps?.isOpen) return;
+    setAlertProps?.({
+      ...alertProps,
+      isOpen: false,
+    });
+  }, [alertProps, setAlertProps]);
+
   useEffect(() => {
-    if (alertProps?.isOpen) {
-      setTimeout(() => {
-        setAlertProps?.({
-          ...alertProps,
-          isOpen: false,
-        });
-      }, 2000);
-    }
-  }, [alertProps?.isOpen]);
+    if (!alertProps?.isOpen) return;
+    const timer = setTimeout(() => {
+      handleClose();
+    }, 5000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [alertProps?.isOpen, handleClose]);
+
+  const handleNavigateToCommunity = () => {
+    if (!alertProps?.communityId) return;
+    handleClose();
+    router.push(`/community/${alertProps?.communityId}`);
+  };
 
   if (!alertProps?.isOpen) return null;
 
   return (
-    <Alert className="fixed top-5 z-40 text-black border-white/20 animate-fade bg-primary max-w-[400px] ml-4">
+    <Alert
+      onClick={handleNavigateToCommunity}
+      className="fixed cursor-pointer top-5 z-40 flex items-center text-black border-white/20 animate-fade bg-primary max-w-[400px] -translate-x-1/2 left-1/2"
+    >
       <MessageSquare />
-      <AlertTitle>
-        { alertProps.content }
+      <AlertTitle className="flex-1">
+        {alertProps?.content || "No message"}
       </AlertTitle>
+      <button
+        className="p-1 cursor-pointer bg-white/30 rounded-full"
+        onClick={(e) => {
+          e.stopPropagation();
+          handleClose();
+        }}
+      >
+        <XIcon size={14} />
+      </button>
     </Alert>
   );
 }
