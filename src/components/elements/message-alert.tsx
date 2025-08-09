@@ -39,7 +39,7 @@ export default function MessageAlert() {
   return (
     <Alert
       onClick={handleNavigateToCommunity}
-      className="fixed cursor-pointer top-5 z-40 flex items-center text-black border-white/20 animate-fade bg-primary max-w-[400px] -translate-x-1/2 left-1/2"
+      className="fixed cursor-pointer top-5 z-40 flex items-center text-black border-white/20 animate-fade bg-primary max-w-[350px] -translate-x-1/2 left-1/2"
     >
       <MessageSquare />
       <AlertTitle className="flex-1">
