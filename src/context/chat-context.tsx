@@ -154,12 +154,16 @@ export default function ChatContextProvider({ children }: PropsWithChildren) {
     (message: string, source: "ON_MESSAGE" | "SEND_MESSAGE") => {
       const parsedMesage: NewSocketMessage = JSON.parse(message);
       const newMessTransformed = transformMessage(parsedMesage);
-      console.log(newMessTransformed, "new message transformed");
+
+      console.log(message, newMessTransformed)
+  
       if (
         source == "ON_MESSAGE" &&
-        newMessTransformed.sender?.id == user?.user?.id
+        parsedMesage.sender == user?.user?.id
       )
         return;
+
+      console.log(newMessTransformed.sender?.id, user?.user?.id, source)  
       setMessageWithDate((prev) => {
         const appendPageNumber = 1;
         return {

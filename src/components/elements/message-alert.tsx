@@ -43,7 +43,7 @@ export default function MessageAlert() {
     >
       <MessageSquare />
       <AlertTitle className="flex-1 line-clamp-1">
-        {alertProps?.content || "No message"}
+        {alertProps?.content || "New message"}
       </AlertTitle>
       <button
         className="p-1 cursor-pointer bg-white/30 rounded-full"
