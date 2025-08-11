@@ -3,7 +3,7 @@ import React from 'react'
 export default function CommunityCardSkeleton() {
   return (
     <div>
-      <div className={"flex w-full items-center gap-x-3.5 p-2 hover:bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-md cursor-pointer"}>
+      <div className={"flex w-full  md:w-[320px] items-center gap-x-3.5 p-2 hover:bg-gradient-to-r from-foreground/5 to-foreground/10 rounded-md cursor-pointer"}>
           <div className="h-[52px] w-[52px] bg-primary/80 animate-pulse text-black rounded-xl overflow-hidden relative"></div>
           <div className="space-y-1.5 flex-1">
             <div className="flex items-center  gap-x-2">

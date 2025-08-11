@@ -9,7 +9,7 @@ export default function CommunityList() {
 
   return (
     <>
-      <section className=" pr-1 w-full md:max-w-[420px] min-w-[350px]  h-full block">
+      <section className=" pr-1 w-full md:fit flex flex-col h-full">
         {isLoading
           ? Array.from({ length: 7 }).map((_, index) => (
               <CommunityCardSkeleton key={index} />

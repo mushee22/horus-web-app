@@ -9,7 +9,7 @@ import ChatContextProvider from "@/context/chat-context";
 
 export default function Chat() {
   return (
-    <div className=" flex-1 flex flex-col relative h-[100dvh] md:h-screen">
+    <div className=" flex-1 flex flex-col relative h-[100dvh] md:h-screen ">
       <ChatContextProvider>
         <ChatHeader />
         <div className="flex flex-col flex-1 overflow-y-auto relative">

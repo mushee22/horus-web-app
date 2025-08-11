@@ -1,6 +1,6 @@
 "use client";
 import { USER_URL } from "@/constants/urls";
-import { queryClient } from "@/lib/client";
+import { handleUpdateCommunity } from "@/lib/client";
 import { fetcher } from "@/lib/fetch";
 import { deleteSession, getSession } from "@/lib/session";
 import { Student } from "@/type";
@@ -143,7 +143,12 @@ export default function AuthContextProvider({ children }: PropsWithChildren) {
           isOpen: true,
         });
         if (pathname.split("/")[1] == "community") {
-          queryClient?.invalidateQueries({ queryKey: ["chat-list"] });
+          handleUpdateCommunity(
+            parseInt(currentMessage.community_id),
+            "increase",
+            1,
+            currentMessage.message || ""
+          );
         }
       }
     },

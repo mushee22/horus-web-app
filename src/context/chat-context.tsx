@@ -2,7 +2,13 @@
 
 import { useAuthContext } from "@/context/auth-context";
 import { fetcher, getChatMediaURL } from "@/lib/fetch";
-import { ChatRoom, Message, MessageWithDate, Student, UserInput } from "@/type";
+import {
+  ChatRoom,
+  Message,
+  MessageWithDate,
+  Student,
+  UserInput,
+} from "@/type";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { getDisplayName } from "@/lib/utils";
@@ -19,6 +25,7 @@ import { useMessageHandling } from "@/hook/use-message-handling";
 import { useMediaHandling } from "@/hook/use-media-handling";
 import { useInputHandling } from "@/hook/use-input-handling";
 import { format, isSameDay, parse } from "date-fns";
+import { handleUpdateCommunity } from "@/lib/client";
 
 interface NewSocketMessage {
   type: "chat" | "image";
@@ -45,6 +52,7 @@ export const ChatContext = React.createContext<ChatContextState>({
 
 export default function ChatContextProvider({ children }: PropsWithChildren) {
   const [page, setPage] = useState(1);
+
   const [isPageIntialLoad, setIsPageIntialLoad] = useState(true);
 
   const [messageWitDate, setMessageWithDate] = useState<
@@ -146,9 +154,10 @@ export default function ChatContextProvider({ children }: PropsWithChildren) {
     (message: string, source: "ON_MESSAGE" | "SEND_MESSAGE") => {
       const parsedMesage: NewSocketMessage = JSON.parse(message);
       const newMessTransformed = transformMessage(parsedMesage);
+      console.log(newMessTransformed, "new message transformed");
       if (
         source == "ON_MESSAGE" &&
-        newMessTransformed.sender?.id != user?.user?.id
+        newMessTransformed.sender?.id == user?.user?.id
       )
         return;
       setMessageWithDate((prev) => {
@@ -159,7 +168,7 @@ export default function ChatContextProvider({ children }: PropsWithChildren) {
         };
       });
 
-      moveFocusToLatestMessage()
+      moveFocusToLatestMessage();
     },
     [transformMessage, updatedMessageWithDate, moveFocusToLatestMessage, user]
   );
@@ -179,6 +188,10 @@ export default function ChatContextProvider({ children }: PropsWithChildren) {
     enabled: !!userId && !!roomId,
     refetchOnMount: "always",
   });
+
+  useEffect(() => {
+    handleUpdateCommunity(parseInt(roomId), 'reset');
+  }, [roomId]);
 
   const { socketRef } = useWebSocket(
     roomId,
